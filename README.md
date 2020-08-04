@@ -1,3 +1,7 @@
+# Work In Progress
+
+This library is in currently in middle of being ported from the [AXP192 version](https://github.com/tuupola/axp192/). It is not in usable state yet.
+
 # Platform agnostic I2C driver for AXP202 PMU
 
 To use this library you must to provide functions for both reading and writing the I2C bus. Function definitions must be the following.
