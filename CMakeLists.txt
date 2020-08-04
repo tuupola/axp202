@@ -1,4 +1,4 @@
 idf_component_register(
-    SRCS "axp192.c"
+    SRCS "axp202.c"
     INCLUDE_DIRS "."
 )
