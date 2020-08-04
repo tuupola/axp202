@@ -1,4 +1,4 @@
-# Platform agnostic I2C driver for AXP192 PMU
+# Platform agnostic I2C driver for AXP202 PMU
 
 To use this library you must to provide functions for both reading and writing the I2C bus. Function definitions must be the following.
 
@@ -16,12 +16,12 @@ $ make menuconfig
 ```
 
 ```c
-#include "axp192.h"
+#include "axp202.h"
 #include "user_i2c.h"
 
 float vacin, iacin, vvbus, ivbus, temp, pbat, vbat, icharge, idischarge, vaps, cbat;
 uint8_t power, charge;
-axp192_t axp;
+axp202_t axp;
 
 /* Add pointers to HAL functions. */
 axp.read = &user_i2c_read;
@@ -30,19 +30,19 @@ axp.write = &user_i2c_write;
 /* You could set the handle here. It can be pointer to anything. */
 axp.handle = NULL;
 
-axp192_init(&axp);
+axp202_init(&axp);
 
-axp192_read(&axp, AXP192_ACIN_VOLTAGE, &vacin);
-axp192_read(&axp, AXP192_ACIN_CURRENT, &iacin);
-axp192_read(&axp, AXP192_VBUS_VOLTAGE, &vvbus);
-axp192_read(&axp, AXP192_VBUS_CURRENT, &ivbus);
-axp192_read(&axp, AXP192_TEMP, &temp);
-axp192_read(&axp, AXP192_TS_INPUT, &vts);
-axp192_read(&axp, AXP192_BATTERY_POWER, &pbat);
-axp192_read(&axp, AXP192_BATTERY_VOLTAGE, &vbat);
-axp192_read(&axp, AXP192_CHARGE_CURRENT, &icharge);
-axp192_read(&axp, AXP192_DISCHARGE_CURRENT, &idischarge);
-axp192_read(&axp, AXP192_APS_VOLTAGE, &vaps);
+axp202_read(&axp, AXP202_ACIN_VOLTAGE, &vacin);
+axp202_read(&axp, AXP202_ACIN_CURRENT, &iacin);
+axp202_read(&axp, AXP202_VBUS_VOLTAGE, &vvbus);
+axp202_read(&axp, AXP202_VBUS_CURRENT, &ivbus);
+axp202_read(&axp, AXP202_TEMP, &temp);
+axp202_read(&axp, AXP202_TS_INPUT, &vts);
+axp202_read(&axp, AXP202_BATTERY_POWER, &pbat);
+axp202_read(&axp, AXP202_BATTERY_VOLTAGE, &vbat);
+axp202_read(&axp, AXP202_CHARGE_CURRENT, &icharge);
+axp202_read(&axp, AXP202_DISCHARGE_CURRENT, &idischarge);
+axp202_read(&axp, AXP202_APS_VOLTAGE, &vaps);
 
 printf(
     "vacin: %.2fV iacin: %.2fA vvbus: %.2fV ivbus: %.2fA vts: %.2fV temp: %.0fC "
@@ -50,13 +50,13 @@ printf(
     vacin, iacin, vvbus, ivbus, vts, temp, pbat, vbat, icharge, idischarge, vaps
 );
 
-axp192_ioctl(&axp, AXP192_READ_POWER_STATUS, &power);
-axp192_ioctl(&axp, AXP192_READ_CHARGE_STATUS, &charge);
+axp202_ioctl(&axp, AXP202_READ_POWER_STATUS, &power);
+axp202_ioctl(&axp, AXP202_READ_CHARGE_STATUS, &charge);
 
 printf("power: 0x%02x charge: 0x%02x", power, charge);
 
-axp192_ioctl(&axp, AXP192_COULOMB_COUNTER_ENABLE, NULL);
-axp192_read(&axp, AXP192_COULOMB_COUNTER, &cbat);
+axp202_ioctl(&axp, AXP202_COULOMB_COUNTER_ENABLE, NULL);
+axp202_read(&axp, AXP202_COULOMB_COUNTER, &cbat);
 
 printf("cbat: %.2fmAh", cbat);
 ```
