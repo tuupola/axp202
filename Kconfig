@@ -49,8 +49,8 @@ config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT0
 menu "Output voltage"
 
     choice AXP202_DCDC2_VOLTAGE_BIT50
-        prompt "LDO2 output voltage"
-        default AXP202_DCDC2_VOLTAGE_BIT50_3V0
+        prompt "DC-DC2 output voltage"
+        default AXP202_DCDC2_VOLTAGE_BIT50_1V8
 
         config AXP202_DCDC2_VOLTAGE_BIT50_0V7
             bool "0.7V"
@@ -260,25 +260,25 @@ menu "Output voltage"
 
     config AXP202_LDO24_VOLTAGE_BIT74
         hex
-        default 0x2c if AXP202_LDO24_VOLTAGE_BIT74_1V8
-        default 0x30 if AXP202_LDO24_VOLTAGE_BIT74_1V9
-        default 0x34 if AXP202_LDO24_VOLTAGE_BIT74_2V0
-        default 0x38 if AXP202_LDO24_VOLTAGE_BIT74_2V1
-        default 0x3c if AXP202_LDO24_VOLTAGE_BIT74_2V2
-        default 0x40 if AXP202_LDO24_VOLTAGE_BIT74_2V3
-        default 0x44 if AXP202_LDO24_VOLTAGE_BIT74_2V4
-        default 0x48 if AXP202_LDO24_VOLTAGE_BIT74_2V5
-        default 0x4c if AXP202_LDO24_VOLTAGE_BIT74_2V6
-        default 0x50 if AXP202_LDO24_VOLTAGE_BIT74_2V7
-        default 0x54 if AXP202_LDO24_VOLTAGE_BIT74_2V8
-        default 0x58 if AXP202_LDO24_VOLTAGE_BIT74_2V9
-        default 0x5c if AXP202_LDO24_VOLTAGE_BIT74_3V0
-        default 0x60 if AXP202_LDO24_VOLTAGE_BIT74_3V1
-        default 0x64 if AXP202_LDO24_VOLTAGE_BIT74_3V2
-        default 0x68 if AXP202_LDO24_VOLTAGE_BIT74_3V3
+        default 0x00 if AXP202_LDO24_VOLTAGE_BIT74_1V8
+        default 0x10 if AXP202_LDO24_VOLTAGE_BIT74_1V9
+        default 0x20 if AXP202_LDO24_VOLTAGE_BIT74_2V0
+        default 0x30 if AXP202_LDO24_VOLTAGE_BIT74_2V1
+        default 0x40 if AXP202_LDO24_VOLTAGE_BIT74_2V2
+        default 0x50 if AXP202_LDO24_VOLTAGE_BIT74_2V3
+        default 0x60 if AXP202_LDO24_VOLTAGE_BIT74_2V4
+        default 0x70 if AXP202_LDO24_VOLTAGE_BIT74_2V5
+        default 0x80 if AXP202_LDO24_VOLTAGE_BIT74_2V6
+        default 0x90 if AXP202_LDO24_VOLTAGE_BIT74_2V7
+        default 0xa0 if AXP202_LDO24_VOLTAGE_BIT74_2V8
+        default 0xb0 if AXP202_LDO24_VOLTAGE_BIT74_2V9
+        default 0xc0 if AXP202_LDO24_VOLTAGE_BIT74_3V0
+        default 0xd0 if AXP202_LDO24_VOLTAGE_BIT74_3V1
+        default 0xe0 if AXP202_LDO24_VOLTAGE_BIT74_3V2
+        default 0xf0 if AXP202_LDO24_VOLTAGE_BIT74_3V3
 
     choice AXP202_LDO24_VOLTAGE_BIT30
-        prompt "LDO2 output voltage"
+        prompt "LDO4 output voltage"
         default AXP202_LDO24_VOLTAGE_BIT30_3V0
         config AXP202_LDO24_VOLTAGE_BIT30_1V25
             bool "1.25V"
@@ -429,5 +429,7 @@ menu "Output voltage"
         default 0x68 if AXP202_LDO3_VOLTAGE_BIT60_3V3
         default 0x6c if AXP202_LDO3_VOLTAGE_BIT60_3V4
         default 0x70 if AXP202_LDO3_VOLTAGE_BIT60_3V5
+
+    endmenu
 
 endmenu
