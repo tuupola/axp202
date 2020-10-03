@@ -88,7 +88,7 @@ axp202_err_t axp202_read(const axp202_t *axp, uint8_t reg, float *buffer)
         sensitivity = 1.7 / 1000;
         break;
     case AXP202_ACIN_CURRENT:
-        /* 0.375mA per LSB */
+        /* 0.625mA per LSB */
         sensitivity = 0.625 / 1000;
         break;
     case AXP202_VBUS_CURRENT:
@@ -103,9 +103,16 @@ axp202_err_t axp202_read(const axp202_t *axp, uint8_t reg, float *buffer)
     case AXP202_TS_INPUT:
         /* 0.8mV per LSB */
         sensitivity = 0.8 / 1000;
+        /* Either 0.0 or 0.7 */
+        offset = 0.7;
+        break;
+    case AXP202_GPIO0_VOLTAGE:
+    case AXP202_GPIO1_VOLTAGE:
+        /* 0.5mV per LSB */
+        sensitivity = 0.5 / 1000;
         break;
     case AXP202_BATTERY_POWER:
-        /* 1.1mV * 0.5mA per LSB */
+        /* 2 * 1.1mV * 0.5mA per LSB */
         return read_battery_power(axp, buffer);
         break;
     case AXP202_BATTERY_VOLTAGE:
@@ -117,7 +124,7 @@ axp202_err_t axp202_read(const axp202_t *axp, uint8_t reg, float *buffer)
         /* 0.5mV per LSB */
         sensitivity = 0.5 / 1000;
         break;
-    case AXP202_APS_VOLTAGE:
+    case AXP202_IPSOUT_VOLTAGE:
         /* 1.4mV per LSB */
         sensitivity = 1.4 / 1000;
         break;
@@ -197,8 +204,8 @@ static axp202_err_t read_battery_power(const axp202_t *axp, float *buffer)
     float sensitivity;
     axp202_err_t status;
 
-    /* 1.1mV * 0.5mA per LSB */
-    sensitivity = 1.1 * 0.5 / 1000;
+    /* 2 * 1.1mV * 0.5mA per LSB */
+    sensitivity = 2 * 1.1 * 0.5 / 1000;
     status = axp->read(axp->handle, AXP202_ADDRESS, AXP202_BATTERY_POWER, tmp, 3);
     if (AXP202_OK != status) {
         return status;
