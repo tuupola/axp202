@@ -40,7 +40,8 @@ extern "C" {
 
 #include <stdint.h>
 
-#define	AXP202_ADDRESS	                (0x68)
+//#define	AXP202_ADDRESS	                (0x68)
+#define	AXP202_ADDRESS	                (0x35)
 
 /* Power control registers */
 #define AXP202_POWER_STATUS             (0x00)
