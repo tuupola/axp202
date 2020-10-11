@@ -38,6 +38,7 @@ SPDX-License-Identifier: MIT
 
 static axp202_err_t read_coloumb_counter(const axp202_t *axp, float *buffer);
 static axp202_err_t read_battery_power(const axp202_t *axp, float *buffer);
+static axp202_err_t read_fuel_gauge(const axp202_t *axp, float *buffer);
 
 static const axp202_init_command_t init_commands[] = {
     {AXP202_LDO24_VOLTAGE, {CONFIG_AXP202_LDO24_VOLTAGE}, 1},
@@ -111,6 +112,8 @@ axp202_err_t axp202_read(const axp202_t *axp, uint8_t reg, float *buffer)
     case AXP202_GPIO1_VOLTAGE:
         /* 0.5mV per LSB */
         sensitivity = 0.5 / 1000;
+        /* TODO: either 0.0 or 0.7 */
+        offset = 0.0;
         break;
     case AXP202_BATTERY_POWER:
         /* 2 * 1.1mV * 0.5mA per LSB */
@@ -132,6 +135,9 @@ axp202_err_t axp202_read(const axp202_t *axp, uint8_t reg, float *buffer)
     case AXP202_COULOMB_COUNTER:
         /* This is currently untested. */
         return read_coloumb_counter(axp, buffer);
+        break;
+    case AXP202_FUEL_GAUGE:
+        return read_fuel_gauge(axp, buffer);
         break;
     }
 
@@ -212,5 +218,19 @@ static axp202_err_t read_battery_power(const axp202_t *axp, float *buffer)
         return status;
     }
     *buffer = (((tmp[0] << 16) + (tmp[1] << 8) + tmp[2]) * sensitivity);
+    return AXP202_OK;
+}
+
+static axp202_err_t read_fuel_gauge(const axp202_t *axp, float *buffer)
+{
+    axp202_err_t status;
+    uint8_t tmp;
+
+    status = axp->read(axp->handle, AXP202_ADDRESS, AXP202_FUEL_GAUGE, &tmp, 1);
+    if (AXP202_OK != status) {
+        return status;
+    }
+    tmp &= ~0b10000000;
+    *buffer = (float)(tmp);
     return AXP202_OK;
 }
