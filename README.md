@@ -7,7 +7,7 @@ int32_t i2c_read(void *handle, uint8_t address, uint8_t reg, uint8_t *buffer, ui
 int32_t i2c_write(void *handle, uint8_t address, uint8_t reg, const uint8_t *buffer, uint16_t size);
 ```
 
-Where `address` is the I2C address, `reg` is the register to read or write, `buffer` holds the data to write or read into and `size` is the amount of data to read or write. The `handle` parameter is an optional customizable argument. You can use it if your I2C implementation requires any additional information such has number of the hardware I2C driver. For example HAL implementation see [ESP I2C helper](https://github.com/tuupola/esp_i2c_helper). For working example see [M5StickC kitchen sink](https://github.com/tuupola/esp_m5stick).
+Where `address` is the I2C address, `reg` is the register to read or write, `buffer` holds the data to write or read into and `size` is the amount of data to read or write. The `handle` parameter is an optional customizable argument. You can use it if your I2C implementation requires any additional information such has number of the hardware I2C driver. For example HAL implementation see [ESP I2C helper](https://github.com/tuupola/esp_i2c_helper). For working example see [TTGO T-Watch 2020 kitchen sink](https://github.com/tuupola/esp_twatch2020).
 
 ## Usage
 
