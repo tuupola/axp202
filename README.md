@@ -19,7 +19,8 @@ $ make menuconfig
 #include "axp202.h"
 #include "user_i2c.h"
 
-float vacin, iacin, vvbus, ivbus, temp, pbat, vbat, icharge, idischarge, vaps, cbat;
+float vacin, iacin, vvbus, ivbus, vts, vgpio0, vgpio1, temp, pbat;
+float vbat, icharge, idischarge, ipsout, cbat, fuel;
 uint8_t power, charge;
 axp202_t axp;
 
@@ -38,16 +39,23 @@ axp202_read(&axp, AXP202_VBUS_VOLTAGE, &vvbus);
 axp202_read(&axp, AXP202_VBUS_CURRENT, &ivbus);
 axp202_read(&axp, AXP202_TEMP, &temp);
 axp202_read(&axp, AXP202_TS_INPUT, &vts);
+axp202_read(&axp, AXP202_GPIO0_VOLTAGE, &vgpio0);
+axp202_read(&axp, AXP202_GPIO1_VOLTAGE, &vgpio1);
 axp202_read(&axp, AXP202_BATTERY_POWER, &pbat);
 axp202_read(&axp, AXP202_BATTERY_VOLTAGE, &vbat);
 axp202_read(&axp, AXP202_CHARGE_CURRENT, &icharge);
 axp202_read(&axp, AXP202_DISCHARGE_CURRENT, &idischarge);
-axp202_read(&axp, AXP202_APS_VOLTAGE, &vaps);
+axp202_read(&axp, AXP202_IPSOUT_VOLTAGE, &ipsout);
+axp202_read(&axp, AXP202_COULOMB_COUNTER, &cbat);
+axp202_read(&axp, AXP202_FUEL_GAUGE, &fuel);
+
 
 printf(
     "vacin: %.2fV iacin: %.2fA vvbus: %.2fV ivbus: %.2fA vts: %.2fV temp: %.0fC "
-    "pbat: %.2fmW vbat: %.2fV icharge: %.2fA idischarge: %.2fA, vaps: %.2fV",
-    vacin, iacin, vvbus, ivbus, vts, temp, pbat, vbat, icharge, idischarge, vaps
+    "vgpio0: %.2fV vgpio1: %.2fV pbat: %.2fmW vbat: %.2fV icharge: %.2fA "
+    "idischarge: %.2fA, ipsout: %.2fV cbat: %.2fmAh fuel: %.0f%%",
+    vacin, iacin, vvbus, ivbus, vts, temp, vgpio0, vgpio1, pbat, vbat, icharge,
+    idischarge, ipsout, cbat, fuel
 );
 
 axp202_ioctl(&axp, AXP202_READ_POWER_STATUS, &power);
