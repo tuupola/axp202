@@ -3,16 +3,22 @@ menu "Power system configuration (AXP202)"
 menu "Output control"
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT6_SELECTED
         bool "Enable LDO3"
+        default y
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT4_SELECTED
         bool "Enable DC-DC2"
+        default y
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT3_SELECTED
         bool "Enable LDO4"
+        default y
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT2_SELECTED
         bool "Enable LDO2"
+        default y
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT1_SELECTED
         bool "Enable DC-DC3"
+        default y
     config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT0_SELECTED
         bool "Enable EXTEN"
+        default y
 endmenu
 
 config AXP202_DCDC23_LDO234_EXTEN_CONTROL_BIT6
