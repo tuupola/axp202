@@ -176,6 +176,49 @@ axp202_err_t axp202_ioctl(const axp202_t *axp, uint16_t command, uint8_t *buffer
         tmp = 0b10100000;
         return axp->write(axp->handle, AXP202_ADDRESS, reg, &tmp, 1);
         break;
+    case AXP202_READ_CONTROL:
+        return axp->read(axp->handle, AXP202_ADDRESS, reg, buffer, 1);
+        break;
+    case AXP202_WRITE_CONTROL:
+        return axp->write(axp->handle, AXP202_ADDRESS, reg, buffer, 1);
+        break;
+    case AXP202_IRQ_CONTROL:
+        for (int i = 0; i < AXP202_IRQ_REG_NUM; i++) {
+            axp202_err_t res = axp->write(axp->handle, AXP202_ADDRESS, reg + i, buffer + i, 1);
+            if (res != AXP202_OK) {
+                return res;
+            }
+        }
+        return AXP202_OK;
+        break;
+    case AXP202_IRQ_READ_CONTROL:
+        for (int i = 0; i < AXP202_IRQ_REG_NUM; i++) {
+            axp202_err_t res = axp->read(axp->handle, AXP202_ADDRESS, reg + i, buffer + i, 1);
+            if (res != AXP202_OK) {
+                return res;
+            }
+        }
+        return AXP202_OK;
+        break;
+    case AXP202_IRQ_READ_STATUS:
+        for (int i = 0; i < AXP202_IRQ_REG_NUM; i++) {
+            axp202_err_t res = axp->read(axp->handle, AXP202_ADDRESS, reg + i, buffer + i, 1);
+            if (res != AXP202_OK) {
+                return res;
+            }
+        }
+        return AXP202_OK;
+        break;
+    case AXP202_IRQ_CLEAR_STATUS:
+        for (int i = 0; i < AXP202_IRQ_REG_NUM; i++) {
+            uint8_t status = 0xff; // 1 for each bit to reset
+            axp202_err_t res = axp->write(axp->handle, AXP202_ADDRESS, reg + i, &status, 1);
+            if (res != AXP202_OK) {
+                return res;
+            }
+        }
+        return AXP202_OK;
+        break;
     }
 
     return AXP202_ERROR_NOTTY;
