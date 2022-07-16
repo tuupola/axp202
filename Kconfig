@@ -440,7 +440,7 @@ endmenu
 
 menu "ADC control"
     config AXP202_ADC_ENABLE_1_BIT7_SELECTED
-        bool "Enable BAT boltage ADC"
+        bool "Enable BAT voltage ADC"
     config AXP202_ADC_ENABLE_1_BIT6_SELECTED
         bool "Enable BAT current ADC"
     config AXP202_ADC_ENABLE_1_BIT5_SELECTED
